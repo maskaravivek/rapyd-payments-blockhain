@@ -5,8 +5,8 @@ const SEPOLIA_RPC = process.env.SEPOLIA_RPC;
 const HOLESKY_RPC = process.env.HOLESKY_RPC;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-const SEPOLIA_CONTRACT = "0x45d88f6DD0f0eDB69C563233Be73458c9980b519";
-const HOLESKY_VERIFIER = "0x11ddd4b07B095802B537267358fB8Eb954B29d99";
+const SEPOLIA_CONTRACT = "<YOUR_CROSS_PAYMENT_SEPOLIA_ADDRESS>";
+const HOLESKY_VERIFIER = "<YOUR_PAYMENT_VERIFIER_HOLESKY_ADDRESS>";
 
 const eventAbi = [
     "event PaymentSent(address indexed from, address indexed to, uint256 amount, uint256 chainId)"
@@ -27,11 +27,11 @@ async function startRelayer() {
     console.log("Relayer is watching for events on Sepolia...");
 
     sourceContract.on("PaymentSent", async (from, to, amount, chainId, event) => {
-        console.log("📦 PaymentSent Detected:");
+        console.log("PaymentSent Detected:");
         console.log({ from, to, amount: amount.toString(), chainId });
 
         if (chainId.toString() !== "17000") {
-            console.log("⛔ Skipping non-Holesky destination.");
+            console.log("Skipping non-Holesky destination.");
             return;
         }
 
@@ -45,9 +45,9 @@ async function startRelayer() {
                 11155111,
                 txHash
             );
-            console.log("✅ Verification TX sent:", tx.hash);
+            console.log("Verification TX sent:", tx.hash);
         } catch (err) {
-            console.error("❌ Error verifying payment:", err.message);
+            console.error("Error verifying payment:", err.message);
             console.log("Error details:", err);
         }
     });
