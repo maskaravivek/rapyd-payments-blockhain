@@ -11,7 +11,3 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat ignition deploy ./ignition/modules/Lock.js
 ```
-
-https://dashboard.alchemy.com/apps/075u9bawz23ulcf8/networks
-
-https://cloud.google.com/application/web3/faucet/ethereum/holesky
